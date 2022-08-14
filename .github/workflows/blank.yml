@@ -1,0 +1,48 @@
+name: build-package
+
+# Controls when the workflow will run
+on:
+  workflow_dispatch:
+
+  repository_dispatch:
+    types:
+      - webhook
+      - '**'
+  
+  # Allows you to run this workflow manually from the Actions tab
+  #workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "build"
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+      
+      #- name: CheckSum
+      #  shell: bash -O extglob {0}
+      #  run: |
+      #    echo "Checksum"
+      #    wget -c https://github.com/BigLinux-Package-Build/build-package/releases/download/youtube-local-git/youtube-local-git-2022.08.05.4a81f50-2-any.pkg.tar.zst
+      #    wget -c https://github.com/BigLinux-Package-Build/build-package/releases/download/youtube-local-git/youtube-local-git-2022.08.05.4a81f50-2-any.pkg.tar.zst.sig
+      #  
+      #    echo '#!/bin/bash
+      #    file=$(find -type f -iname "*.zst" | cut -d "/" -f2)
+      #    for i in *.zst *.sig; do test -e $i && md5sum $i >> "$file"".md5"; done
+      #    exit 0' > md5.sh
+      #    bash md5.sh
+          
+       ## Tmate ##
+      #- name: Setup tmate session
+      #  uses: mxschmitt/action-tmate@v3 
+        
+      - name: Telegram Alert Start
+        shell: bash
+        run: |
+          echo ${{ github.repository }}
+          curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "${{ secrets.CHAT_ID_TESTE }}", "text": "Criando ISO: ${{ github.workflow }} Enviado por':' ${{ github.actor }} https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}", "disable_notification": true}' ${{ secrets.MESSAGE_BOT_KEY }}
