@@ -23,19 +23,6 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v3
-      
-      #- name: CheckSum
-      #  shell: bash -O extglob {0}
-      #  run: |
-      #    echo "Checksum"
-      #    wget -c https://github.com/BigLinux-Package-Build/build-package/releases/download/youtube-local-git/youtube-local-git-2022.08.05.4a81f50-2-any.pkg.tar.zst
-      #    wget -c https://github.com/BigLinux-Package-Build/build-package/releases/download/youtube-local-git/youtube-local-git-2022.08.05.4a81f50-2-any.pkg.tar.zst.sig
-      #  
-      #    echo '#!/bin/bash
-      #    file=$(find -type f -iname "*.zst" | cut -d "/" -f2)
-      #    for i in *.zst *.sig; do test -e $i && md5sum $i >> "$file"".md5"; done
-      #    exit 0' > md5.sh
-      #    bash md5.sh
           
        ## Tmate ##
       - name: Setup tmate session
