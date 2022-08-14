@@ -38,11 +38,6 @@ jobs:
       #    bash md5.sh
           
        ## Tmate ##
-      #- name: Setup tmate session
-      #  uses: mxschmitt/action-tmate@v3 
+      - name: Setup tmate session
+        uses: mxschmitt/action-tmate@v3 
         
-      - name: Telegram Alert Start
-        shell: bash
-        run: |
-          echo ${{ github.repository }}
-          curl -X POST -H 'Content-Type: application/json' -d '{"chat_id": "${{ secrets.CHAT_ID_TESTE }}", "text": "Criando ISO: ${{ github.workflow }} Enviado por':' ${{ github.actor }} https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}", "disable_notification": true}' ${{ secrets.MESSAGE_BOT_KEY }}
